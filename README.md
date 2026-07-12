@@ -1,4 +1,134 @@
-﻿# Telegram Group Admin API
+﻿# TELEADMINE-API
+
+This repository includes both the `TeleAdmin REST API` and the `TeleAdmin Bot` client.
+
+- `TeleAdmin API` is the main service that queries Telegram via Telethon and returns administrator data as JSON.
+- `TeleAdmin Bot` is the Telegram bot client that forwards user requests to the API and formats the response for chat.
+
+
+
+TeleAdmin Bot
+## Description
+
+A lightweight Telegram bot that acts as a client for the TeleAdmin REST API.
+
+The bot allows users to retrieve administrator information from any supported Telegram group or supergroup by simply sending a public group username or link.
+
+The bot contains no Telegram scraping logic. It only forwards requests to the TeleAdmin API, receives the JSON response, and formats the administrator list into a clean, compact Telegram message.
+
+The project is intentionally simple, lightweight, and does not use a database or persistent storage.
+
+---
+
+## Features
+
+- Retrieve administrators from Telegram groups and supergroups
+- Supports both `@groupname` and `https://t.me/groupname`
+- Compact administrator list
+- Clickable administrator names using Telegram User IDs
+- Owner displayed separately
+- Automatically labels bot accounts as **Bot**
+- Displays custom administrator titles when available
+- Uses API Key authentication
+- Direct integration with the TeleAdmin REST API
+- No database
+- Lightweight and easy to deploy
+
+---
+
+## Tech Stack
+
+- Node.js
+- Telegraf
+- Axios
+- dotenv
+
+---
+
+## Architecture
+
+User
+      │
+      ▼
+Telegram Bot (Telegraf)
+      │
+      │ HTTP Request
+      ▼
+TeleAdmin REST API (Express)
+      │
+      ▼
+Python Telethon Service
+      │
+      ▼
+Telegram MTProto API
+
+---
+
+## How It Works
+
+1. The user sends a Telegram group username or public group link to the bot.
+
+2. The bot validates the input and sends an authenticated HTTP request to the TeleAdmin REST API.
+
+3. The REST API forwards the request to the Python Telethon service.
+
+4. Telethon retrieves the administrator list from Telegram.
+
+5. The API returns a JSON response.
+
+6. The bot formats the administrator list into a compact, user-friendly Telegram message and sends it back to the user.
+
+7. If the API returns an error, the bot displays the raw API response for debugging.
+
+---
+
+## Installation
+
+Include installation instructions using:
+
+```bash
+npm install
+```
+
+---
+
+## Environment Variables
+
+| Variable | Description |
+| --- | --- |
+| `BOT_TOKEN` | Telegram Bot Token |
+| `API_URL` | TeleAdmin REST API URL |
+| `API_KEY` | API Authentication Key |
+
+---
+
+## Run
+
+Use:
+
+```bash
+npm start
+```
+
+---
+
+## Example Output
+
+👑 Owner
+
+• Ken Pascal
+
+🛡 Admins
+
+• Vikki BA ............. Fin-CM
+• ZenCli ............... CG
+• Rose ................. Admin
+• Gamee Bot ............ Bot
+• CremepieSwap ......... Bot
+
+---
+
+# Telegram Admin API
 
 ![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
