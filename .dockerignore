@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+.env
+telethon/session
+__pycache__
+*.pyc
+.DS_Store

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - TELETHON_PORT=5000
+      - API_KEY=your_api_key_here
+      - TELEGRAM_API_ID=${TELEGRAM_API_ID}
+      - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
+      - SESSION_NAME=telegram
+    depends_on:
+      - telethon
+
+  telethon:
+    image: python:3.11-slim
+    working_dir: /app/telethon
+    volumes:
+      - .:/app
+    command: python telethon/service.py
+    environment:
+      - TELETHON_PORT=5000
+      - TELEGRAM_API_ID=${TELEGRAM_API_ID}
+      - TELEGRAM_API_HASH=${TELEGRAM_API_HASH}
+      - SESSION_NAME=telegram
